@@ -25,13 +25,14 @@ export default {
       var values = JSON.parse(item.values || '[]')
       var row ={
         id: item.id,
-//        _id: item._id,
-//        values: values,
         created_at: item.created_at,
       }
+      /*
       values.forEach(function(value_item){
         row[value_item.name] = value_item.value
       })
+      */
+     row.values = values
       ret.push(row)                        
     });        
     return ret
@@ -39,14 +40,11 @@ export default {
   convertItemOne: function(item){
     var ret ={}
     var row ={
-      id: item._id,
-      _id: item._id,
+      id: item.id,
+      name: item.name,
+      values : JSON.parse(item.values || '[]') ,
       created_at: item.created_at,
-    }
-    item.values.forEach(function(value_item){
-      row[value_item.name] = value_item.value
-//            console.log(value_item.name , value_item.value)
-    })
+    }    
     ret = row
     return ret
   },

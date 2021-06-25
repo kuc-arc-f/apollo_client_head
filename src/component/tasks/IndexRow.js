@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 //
 class IndexRow extends Component {
   render() {
-// console.log(this.props.obj)
+//console.log(this.props.obj.values)
     return (
     <div>
       <Link to={`/task_show/${this.props.obj.id}`} >
-          <h3>{this.props.obj.title}</h3>
+          <h3>{this.props.obj.values.title}</h3>
       </Link>      
       <Link to={`/task_edit/${this.props.obj.id}`}
         className="btn btn-sm btn-outline-primary ">Edit

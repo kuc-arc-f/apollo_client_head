@@ -24,7 +24,7 @@ class TaskCreate extends React.Component {
         "content": content.value,
       }
       var json= JSON.stringify( values );
-      var s = json.replace(/"/g , "\'")
+      var s = json.replace(/"/g , "'")
 //console.log(s)
       const result = await client.mutate({
         mutation: LibTask.get_gql_add(apikey, content_name , s)

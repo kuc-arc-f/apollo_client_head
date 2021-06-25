@@ -23,6 +23,15 @@ export default {
     }
    `   
   },
+  get_query_count : function(site_id , content_name){
+    return gql`
+    query {
+      content_count(
+        site_id: "${site_id}" , content_name:"${content_name}"
+      )
+    }
+   `   
+  },  
   get_gql_add : function(apikey, content_name, values){
     return gql`
       mutation {

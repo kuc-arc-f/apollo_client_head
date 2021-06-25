@@ -7,26 +7,32 @@ import LibTask from '../../lib/LibTask';
 class TasksShow extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { item: {} };
+    this.state = {
+      item: {} ,title:'',content:'' 
+    };
   }
   async componentDidMount(){
     const id = (this.props.match.params.id)
-    const data = await client.query({
+    var data = await client.query({
       query: LibTask.get_query_task(id) ,fetchPolicy: "network-only"
-    }) 
-    var items = LibApiFind.convert_items([data.data.content])
-    this.setState({item: items[0] })
+    })
+    var item = data.data.content
+    var row = LibApiFind.convertItemOne(item)
+//console.log(row)
+    this.setState({
+      item: row ,title: row.values.title ,content: row.values.content
+    })
   }
   render() {
-// console.log(this.state.item)
+//console.log( typeof this.state.item.values)
     return (
     <div className="container py-2">
       <h3>Tasks - show</h3>
       <hr />
-      <h1>{this.state.item.title}</h1>
+      <h1>{this.state.title}</h1>
       ID : {this.state.item.id}
       <hr />
-      {this.state.item.content}
+      {this.state.content}
     </div>
     );
   }

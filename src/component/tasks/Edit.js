@@ -8,14 +8,17 @@ class TaskEdit extends React.Component {
   constructor(props) {
     super(props);
     this.id = (this.props.match.params.id)
-    this.state = { item: {} };
+    this.state = { item: {} ,title:'',content:''  };
   }
   async componentDidMount(){
     const data = await client.query({
       query: LibTask.get_query_task(this.id) ,fetchPolicy: "network-only"
     }) 
-    var items = LibApiFind.convert_items([data.data.content]) 
-    this.setState({item: items[0] })
+    var item = data.data.content
+    var row = LibApiFind.convertItemOne(item) 
+    this.setState({
+      item: row ,title: row.values.title ,content: row.values.content
+    })
 // console.log(items)   
   }
   async clickHandler(){
@@ -29,7 +32,7 @@ class TaskEdit extends React.Component {
         "content": content.value,
       }
       var json= JSON.stringify( values );
-      var s = json.replace(/"/g , "\'")   
+      var s = json.replace(/"/g , "'")   
 //console.log(s)  
       const result = await client.mutate({
         mutation: LibTask.get_gql_update(apikey, this.id, content_name, s)
@@ -64,11 +67,11 @@ console.log(result)
       <hr />   
       <label>Title:</label>
       <input type="text" name="title" id="title"
-         defaultValue={this.state.item.title} />
+         defaultValue={this.state.title} />
       <hr />
       <label>Content:</label>
       <input type="text" name="content" id="content" 
-      defaultValue={this.state.item.content} />
+      defaultValue={this.state.content} />
       <hr />      
       <button onClick={() => {this.clickHandler()}}>Update
       </button>   
