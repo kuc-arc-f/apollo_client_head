@@ -4,6 +4,7 @@ import IndexRow from './IndexRow';
 import client from '../../apollo-client'
 import LibApiFind from '../../lib/LibApiFind';
 import LibTask from '../../lib/LibTask';
+import LibAuth from '../../lib/LibAuth';
 
 class TasksIndex extends React.Component {
   constructor(props) {
@@ -11,14 +12,17 @@ class TasksIndex extends React.Component {
     this.state = { items: [] };
   }
   async componentDidMount(){
-    const site_id= process.env.REACT_APP_SITE_ID;
-    const content_name = "tasks"    
-    const data = await client.query({
-      query: LibTask.get_query_tasks(site_id , content_name) ,fetchPolicy: "network-only"
-    }) 
-    var items = LibApiFind.convert_items(data.data.contents)
-    this.setState({items: items })
-console.log(items)   
+    const valid = LibAuth.valid_login(this.props)
+    if(valid){
+      const site_id= process.env.REACT_APP_SITE_ID;
+      const content_name = "tasks"    
+      const data = await client.query({
+        query: LibTask.get_query_tasks(site_id , content_name) ,fetchPolicy: "network-only"
+      }) 
+      var items = LibApiFind.convert_items(data.data.contents)
+      this.setState({items: items })
+  console.log(items)   
+    }
   }
   render() {
     return (

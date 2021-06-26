@@ -6,7 +6,7 @@
 
  date    : 2021/06/24
 
- update  : 2021/06/26 
+ update  : 2021/06/27
 
 ***
 ### Summary
@@ -23,11 +23,12 @@ npm install
 yarn start
 
 ***
-* .env , headlessCMS setting require
+* .env , headlessCMS ,apollo server URL setting require
 
 ```
 REACT_APP_API_KEY=12345678
 REACT_APP_SITE_ID=111
+REACT_APP_GQL_URL=http://localhost:4000/graphql
 ```
 
 ***

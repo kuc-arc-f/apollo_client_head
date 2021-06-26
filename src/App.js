@@ -13,6 +13,8 @@ import tasks from './component/tasks/Index';
 import taskCreate from './component/tasks/Create';
 import taskShow from './component/tasks/Show';
 import taskEdit from './component/tasks/Edit';
+/* users */
+import Login from './component/users/Login';
 
 class App extends Component {
   render() {
@@ -29,6 +31,8 @@ class App extends Component {
             <Route path='/task_create' component={taskCreate} />
             <Route path='/task_show/:id' component={taskShow}/>
             <Route path='/task_edit/:id' component={taskEdit}/>
+            {/* users */}
+            <Route path='/login' component={Login} />
 
           </ApolloProvider>
         </div>
