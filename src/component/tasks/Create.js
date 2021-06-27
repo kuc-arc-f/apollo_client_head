@@ -3,15 +3,20 @@ import React  from 'react';
 import client from '../../apollo-client'
 //import LibApiFind from '../../lib/LibApiFind';
 import LibTask from '../../lib/LibTask';
+import LibFlash from '../../lib/LibFlash';
+import LibAuth from '../../lib/LibAuth';
 
 class TaskCreate extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      count: 0
-    };
+    this.state = { user_id: 0 };
   }
   async componentDidMount(){
+    const valid = LibAuth.valid_login(this.props)
+    if(valid){
+      const uid = LibAuth.get_uid()
+      this.setState({user_id: uid })
+    }    
   }
   async clickHandler(){
     try {
@@ -30,6 +35,8 @@ class TaskCreate extends React.Component {
         mutation: LibTask.get_gql_add(apikey, content_name , s)
       })
 console.log(result)
+      var flash = {success:"Conmplete, save", error:""}
+      const res = LibFlash.set_flash( this.state.user_id , flash)
       alert("Complete, save");
       this.props.history.push("/tasks");         
     } catch (error) {

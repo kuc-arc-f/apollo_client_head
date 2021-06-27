@@ -1,5 +1,5 @@
 import React  from 'react';
-import LibCookie from '../lib/LibCookie';
+//import LibCookie from '../lib/LibCookie';
 import LibAuth from '../lib/LibAuth';
 
 function Home(props) {

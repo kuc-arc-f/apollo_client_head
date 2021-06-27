@@ -17,6 +17,21 @@ export default {
       throw new Error('error, set_cookie');
     }
   },
+  get_uid: function(){
+    try{
+      var ret = ""
+      const key = process.env.REACT_APP_COOKIE_USER_ID
+      const user_id = LibCookie.get_cookie(key)
+//console.log(user_id)
+      if(user_id != null){
+        ret = user_id
+      }      
+      return ret
+    } catch (e) {
+      console.log(e);
+      throw new Error('error, get_uid');
+    }
+  },  
   user_logout: function(props){
     try{
       const key = process.env.REACT_APP_COOKIE_USER_ID

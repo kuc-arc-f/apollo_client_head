@@ -3,22 +3,29 @@ import React  from 'react';
 import client from '../../apollo-client'
 import LibApiFind from '../../lib/LibApiFind';
 import LibTask from '../../lib/LibTask';
+import LibFlash from '../../lib/LibFlash';
+import LibAuth from '../../lib/LibAuth';
 
 class TaskEdit extends React.Component {
   constructor(props) {
     super(props);
     this.id = (this.props.match.params.id)
-    this.state = { item: {} ,title:'',content:''  };
+    this.state = { user_id:"", item: {} ,title:'',content:''  };
   }
   async componentDidMount(){
-    const data = await client.query({
-      query: LibTask.get_query_task(this.id) ,fetchPolicy: "network-only"
-    }) 
-    var item = data.data.content
-    var row = LibApiFind.convertItemOne(item) 
-    this.setState({
-      item: row ,title: row.values.title ,content: row.values.content
-    })
+    const valid = LibAuth.valid_login(this.props)
+    if(valid){
+      const uid = LibAuth.get_uid()
+      const data = await client.query({
+        query: LibTask.get_query_task(this.id) ,fetchPolicy: "network-only"
+      }) 
+      var item = data.data.content
+      var row = LibApiFind.convertItemOne(item) 
+      this.setState({
+        item: row ,title: row.values.title ,content: row.values.content,
+        user_id : uid
+      })
+    }
 // console.log(items)   
   }
   async clickHandler(){
@@ -38,6 +45,8 @@ class TaskEdit extends React.Component {
         mutation: LibTask.get_gql_update(apikey, this.id, content_name, s)
       })  
 console.log(result)
+      var flash = {success:"Conmplete, save", error:""}
+      const res = LibFlash.set_flash( this.state.user_id , flash)
       alert("Complete, update");
       this.props.history.push("/tasks");
     } catch (error) {
@@ -52,6 +61,8 @@ console.log(result)
         mutation: LibTask.get_gql_delete(apikey, this.id)
       })
 console.log(result)
+      var flash = {success:"Conmplete, delete", error:""}
+      LibFlash.set_flash( this.state.user_id , flash)
       alert("Complete, delete");
       this.props.history.push("/tasks");
     } catch (error) {
