@@ -15,12 +15,15 @@ class TasksIndex extends React.Component {
   async componentDidMount(){
     const valid = LibAuth.valid_login(this.props)
     if(valid){
+      const uid = LibAuth.get_uid()
+//console.log("uid=", uid)
       const site_id= process.env.REACT_APP_SITE_ID;
       const content_name = "tasks"    
       const data = await client.query({
-        query: LibTask.get_query_tasks(site_id , content_name) ,fetchPolicy: "network-only"
+        query: LibTask.get_query_tasks_uid(site_id , content_name, uid) ,
+        fetchPolicy: "network-only"
       }) 
-      var items = LibApiFind.convert_items(data.data.contents)
+      var items = LibApiFind.convert_items(data.data.contents_uid)
       this.setState({items: items })
   console.log(items)   
     }

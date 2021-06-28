@@ -6,7 +6,7 @@ export default {
     var ret =[]
     items.forEach(function(item){
       // var json= JSON.stringify( item.values );
-//console.log( JSON.stringify( item.values ) )
+//console.log( item )
       var row ={
         id: item._id,
         _id: item._id,
@@ -21,10 +21,11 @@ export default {
   convert_items: function(items){
     var ret =[]
     items.forEach(function(item){
-//console.log("id=" ,item._id)
+//console.log(item)
       var values = JSON.parse(item.values || '[]')
       var row ={
         id: item.id,
+        user_id: item.user_id,
         created_at: item.created_at,
       }
       /*

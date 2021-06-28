@@ -1,32 +1,18 @@
 import { gql} from '@apollo/client';
-//
+
 export default {
-  get_query_tasks : function(site_id , content_name){
+  get_query_contents : function(site_id , content_name){
     return gql`
     query {
       contents(site_id: "${site_id}" , content_name:"${content_name}") {
         id
         name
-        user_id
         values
       }      
     }
    `   
   },
-  get_query_tasks_uid : function(site_id , content_name, user_id){
-    return gql`
-    query {
-      contents_uid(site_id: "${site_id}" , content_name:"${content_name}" ,
-        user_id: "${user_id}") {
-        id
-        name
-        user_id
-        values
-      }      
-    }
-   `   
-  },  
-  get_query_task : function(id){
+  get_query_content : function(id){
     return gql`
     query {
       content(id: "${id}"){
@@ -46,11 +32,11 @@ export default {
     }
    `   
   },  
-  get_gql_add : function(apikey, content_name, values , user_id){
+  get_gql_add : function(apikey, content_name, values){
     return gql`
       mutation {
         addContent( apikey: "${apikey}", content_name: "${content_name}", 
-        values: "${values}", user_id: "${user_id}"
+        values: "${values}"
         ) {
           id
         }        

@@ -15,6 +15,7 @@ class TaskCreate extends React.Component {
     const valid = LibAuth.valid_login(this.props)
     if(valid){
       const uid = LibAuth.get_uid()
+//console.log("uid=", uid)
       this.setState({user_id: uid })
     }    
   }
@@ -32,7 +33,7 @@ class TaskCreate extends React.Component {
       var s = json.replace(/"/g , "'")
 //console.log(s)
       const result = await client.mutate({
-        mutation: LibTask.get_gql_add(apikey, content_name , s)
+        mutation: LibTask.get_gql_add(apikey, content_name , s ,this.state.user_id)
       })
 console.log(result)
       var flash = {success:"Conmplete, save", error:""}
