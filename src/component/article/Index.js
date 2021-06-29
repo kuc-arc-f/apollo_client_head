@@ -5,28 +5,27 @@ import LibAuth from '../../lib/LibAuth';
 import LibContent from '../../lib/LibContent';
 import FlashBox from '../element/FlashBox';
 
-class TasksIndex extends React.Component {
+class ArticleIndex extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { items: [] ,flash:{} };
+    this.state = { items: [] ,flash:{} ,user_id: "" };
   }
   async componentDidMount(){
     const valid = LibAuth.valid_login(this.props)
     if(valid){
       const uid = LibAuth.get_uid()
-      const items = await LibContent.get_items_uid("tasks", uid)
-//console.log(d)
-      this.setState({items: items })
-  console.log(items)   
+      const items = await LibContent.get_items_uid("article", uid)
+      this.setState({items: items, user_id: uid })
+//console.log(items)   
     }
   }
   render() {
     return (
     <div className="container py-2">
       <FlashBox />
-      <h3>Tasks - index</h3>
+      <h3>article - index</h3>
       <hr />   
-      <Link to={`/task_create`} >
+      <Link to={`/article_create`} >
           <button>Create</button>
       </Link>      
       <hr />         
@@ -37,4 +36,4 @@ class TasksIndex extends React.Component {
     );
   }
 }
-export default TasksIndex;
+export default ArticleIndex;

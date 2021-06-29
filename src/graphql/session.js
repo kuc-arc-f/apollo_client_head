@@ -1,6 +1,6 @@
 import { gql} from '@apollo/client';
 //
-export default {
+const session = {
   get_query_get: function(user_id , key){
     return gql`
     query {
@@ -32,3 +32,4 @@ export default {
    `   
   },
 }
+export default session

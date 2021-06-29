@@ -3,7 +3,7 @@ import client from '../apollo-client'
 
 import GQL_session from '../graphql/session';
 //
-export default {
+const LibSession = {
   get_session: async function(user_id , key){
     try {
       var ret = null
@@ -14,7 +14,7 @@ export default {
       if(data.data.session != null){
 //console.log(typeof data.data.session.value)
 //console.log(data.data.session)  
-        var item = data.data.session
+//        var item = data.data.session
         var value = JSON.parse(data.data.session.value || '[]')
 //console.log(item)  
         ret = value 
@@ -56,3 +56,4 @@ export default {
   },  
 
 }
+export default LibSession

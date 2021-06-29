@@ -1,6 +1,6 @@
 import { gql} from '@apollo/client';
 
-export default {
+const content = {
   get_query_contents : function(site_id , content_name){
     return gql`
     query {
@@ -12,6 +12,19 @@ export default {
     }
    `   
   },
+  get_query_contents_uid : function(site_id , content_name, user_id){
+    return gql`
+    query {
+      contents_uid(site_id: "${site_id}" , content_name:"${content_name}",
+        user_id: "${user_id}" 
+      ) {
+        id
+        name
+        values
+      }      
+    }
+   `   
+  },  
   get_query_content : function(id){
     return gql`
     query {
@@ -32,11 +45,11 @@ export default {
     }
    `   
   },  
-  get_gql_add : function(apikey, content_name, values){
+  get_gql_add : function(apikey, content_name, values, user_id){
     return gql`
       mutation {
         addContent( apikey: "${apikey}", content_name: "${content_name}", 
-        values: "${values}"
+        values: "${values}", user_id: "${user_id}"
         ) {
           id
         }        
@@ -65,3 +78,4 @@ export default {
   },
 
 }
+export default content

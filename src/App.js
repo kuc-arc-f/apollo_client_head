@@ -15,6 +15,16 @@ import taskShow from './component/tasks/Show';
 import taskEdit from './component/tasks/Edit';
 /* users */
 import Login from './component/users/Login';
+/* article */
+import article from './component/article/Index';
+import articleCreate from './component/article/Create';
+import articleShow from './component/article/Show';
+import articleEdit from './component/article/Edit';
+/* books */
+import books from './component/books/Index';
+import bookCreate from './component/books/Create';
+import bookShow from './component/books/Show';
+import bookEdit from './component/books/Edit';
 
 class App extends Component {
   render() {
@@ -33,7 +43,16 @@ class App extends Component {
             <Route path='/task_edit/:id' component={taskEdit}/>
             {/* users */}
             <Route path='/login' component={Login} />
-
+            {/* article */}
+            <Route path='/article' component={article} />
+            <Route path='/article_create' component={articleCreate} />
+            <Route path='/article_show/:id' component={articleShow}/>
+            <Route path='/article_edit/:id' component={articleEdit}/>
+            {/* books */}
+            <Route path='/books' component={books} />
+            <Route path='/book_create' component={bookCreate} /> 
+            <Route path='/book_show/:id' component={bookShow}/>           
+            <Route path='/book_edit/:id' component={bookEdit}/>            
           </ApolloProvider>
         </div>
       </Router>

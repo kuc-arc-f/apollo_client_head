@@ -1,6 +1,6 @@
 import LibSession from '../lib/LibSession';
 //
-export default {
+const LibFlash = {
   set_flash: async function(user_id , flash){
     try {
       const res = await LibSession.set_session(user_id , "flash", flash)
@@ -25,3 +25,4 @@ export default {
     }    
   },
 }
+export default LibFlash

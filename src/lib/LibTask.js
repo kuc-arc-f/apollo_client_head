@@ -1,6 +1,6 @@
 import { gql} from '@apollo/client';
 //
-export default {
+const LibTask = {
   get_query_tasks : function(site_id , content_name){
     return gql`
     query {
@@ -79,3 +79,4 @@ export default {
   },
 
 }
+export default LibTask

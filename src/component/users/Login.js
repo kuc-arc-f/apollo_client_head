@@ -23,8 +23,8 @@ class TaskCreate extends React.Component {
   async clickHandler(){
     try {
       const key_cookie = process.env.REACT_APP_COOKIE_USER_ID
-      const apikey = process.env.REACT_APP_API_KEY;
-      const content_name = "tasks"
+//      const apikey = process.env.REACT_APP_API_KEY;
+//      const content_name = "tasks"
       var mail = document.getElementById('mail');
       var password = document.getElementById('password');
 //console.log(s)

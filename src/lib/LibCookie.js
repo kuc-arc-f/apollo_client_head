@@ -1,7 +1,7 @@
 // LibCookie
 import moment from 'moment'
 //
-export default {
+const LibCookie = {
   set_cookie: function(key, value){
     try{
       var dt = moment().add(10, 'year').toDate().toUTCString()
@@ -35,5 +35,5 @@ export default {
       throw new Error('error, get_cookie');
     }
   },
-
 }
+export default LibCookie

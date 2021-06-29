@@ -1,7 +1,5 @@
-// LibApiFind
-
 //
-export default {
+const LibApiFind = {
   convert_values: function(items){
     var ret =[]
     items.forEach(function(item){
@@ -55,7 +53,7 @@ export default {
 //      return a.num - b.num;
       return a[column] - b[column];
     });  
-    if(asc_type == "DESC"){
+    if(asc_type === "DESC"){
       items.forEach(function(item){ ret.unshift(item) });
     }else{
       items.forEach(function(item){ ret.push(item) });
@@ -64,3 +62,4 @@ export default {
   },
 
 }
+export default LibApiFind

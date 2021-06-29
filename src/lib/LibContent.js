@@ -2,7 +2,7 @@ import client from '../apollo-client'
 import Content from '../graphql/content'
 import LibApiFind from '../lib/LibApiFind';
 //
-export default {
+const LibContent = {
   get_items: async function(content_name){
     try {
       const site_id= process.env.REACT_APP_SITE_ID;
@@ -17,6 +17,20 @@ export default {
       console.error(error);
     }    
   },
+  get_items_uid: async function(content_name, user_id){
+    try {
+      const site_id= process.env.REACT_APP_SITE_ID;
+      const data = await client.query({
+        query: Content.get_query_contents_uid(site_id , content_name, user_id) ,
+        fetchPolicy: "network-only"
+      })
+      var item = LibApiFind.convert_items(data.data.contents_uid )
+      return item      
+    } catch (error) {
+      alert("Error, get_items_uid")
+      console.error(error);
+    }    
+  },  
   get_item: async function(id){
     try {
       var data = await client.query({
@@ -30,16 +44,17 @@ export default {
       console.error(error);
     }    
   },
-  add_item: async function(content_name, values){
+  add_item: async function(content_name, values, user_id){
     try {
       const apikey = process.env.REACT_APP_API_KEY;
       var json= JSON.stringify( values );
-      var s = json.replace(/"/g , "'")
+      json = json.replace(/"/g , "'")
+//console.log(json)
       const result = await client.mutate({
-        mutation: Content.get_gql_add(apikey, content_name , s)
+        mutation: Content.get_gql_add(apikey, content_name , json,
+        user_id)
       })
       return result
-//console.log(result)
     } catch (error) {
       alert("Error, add_item")
       console.error(error);
@@ -74,5 +89,35 @@ export default {
       console.error(error);
     }    
   },
+  array_to_csv: async function(items){
+    try {
+      var formatCSV = '';
+      for (var i = 0; i < items.length; i++) {
+        var value = items[i];
+        formatCSV += value + ',';
+      }
+      return formatCSV
+//console.log(result)
+    } catch (error) {
+      alert("Error, array_to_csv")
+      console.error(error);
+    }    
+  },
+  csv_to_array: async function(items){
+    try {
+      var ret = []
+      var arr = items.split(',');
+      for(var i = 0; i < arr.length; i++){
+        if(arr[i] === '') break;
+        ret.push(arr[i])
+      }
+      return ret
+//console.log(result)
+    } catch (error) {
+      alert("Error, array_to_csv")
+      console.error(error);
+    }      
+  },
 
 }
+export default LibContent

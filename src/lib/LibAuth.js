@@ -1,6 +1,6 @@
 import LibCookie from '../lib/LibCookie'
 
-export default {
+const LibAuth = {
   valid_login: function(props){
     try{
       var ret = true
@@ -43,5 +43,5 @@ export default {
       throw new Error('error, set_cookie');
     }
   },
-
 }
+export default LibAuth
